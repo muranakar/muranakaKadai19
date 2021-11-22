@@ -2,8 +2,7 @@
 //  FruitsRepository.swift
 //  muranakaKadai19
 //
-//  Created by 村中令 on 2021/11/21.
-//
+//  Created by 村中令 on 2021/11/21
 
 import UIKit
 
