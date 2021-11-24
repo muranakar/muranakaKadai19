@@ -15,11 +15,13 @@ class FruitsTableViewController: UITableViewController {
         Fruit(name: "バナナ", isCheck: false),
         Fruit(name: "パイナップル", isCheck: true)
     ]
+    
+    private let repository = FruitsRepository()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // MARK: - 追記
-        guard let readFruits = FruitsRepository.readFruits() else { return }
+        guard let readFruits = repository.readFruits() else { return }
         fruits = readFruits
     }
     // MARK: - Table view data source
@@ -39,7 +41,7 @@ class FruitsTableViewController: UITableViewController {
         fruits[indexPath.row].isCheck.toggle()
         tableView.reloadRows(at: [indexPath], with: .automatic)
         // MARK: - 追記
-        FruitsRepository.setFruits(fruits: fruits)
+        repository.setFruits(fruits: fruits)
     }
 
     override func tableView(_ tableView: UITableView,
@@ -49,7 +51,7 @@ class FruitsTableViewController: UITableViewController {
             fruits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             // MARK: - 追記
-            FruitsRepository.setFruits(fruits: fruits)
+            repository.setFruits(fruits: fruits)
         }
     }
 
@@ -82,7 +84,7 @@ class FruitsTableViewController: UITableViewController {
                         with: .top
                     )
                     // MARK: - 追記
-                    FruitsRepository.setFruits(fruits: strongSelf.fruits)
+                    strongSelf.repository.setFruits(fruits: strongSelf.fruits)
                 case.cancel:
                     break
                 }
@@ -99,7 +101,7 @@ class FruitsTableViewController: UITableViewController {
                     strongSelf.fruits[indexPath.row].name = name
                     strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
                     // MARK: - 追記
-                    FruitsRepository.setFruits(fruits: strongSelf.fruits)
+                    strongSelf.repository.setFruits(fruits: strongSelf.fruits)
                 case.cancel:
                     break
                 }
